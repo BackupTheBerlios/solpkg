@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.9 2002/11/30 19:16:12 zigg Exp $
+# $Id: Makefile,v 1.10 2003/09/17 14:31:38 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		openssh
-PACKAGE_VERSION =	3.5p1
+PACKAGE_VERSION =	3.7.1p1
 
 PACKAGE_DESCRIPTION =	OpenSSH
 PACKAGE_CATEGORY =	utility
@@ -11,6 +11,7 @@ PACKAGE_CATEGORY =	utility
 INSTALL_ETCDIR =	/etc/ssh
 INSTALL_LIBEXECDIR =	${INSTALL_LIBDIR}/ssh
 CONFIGURE_ARGS +=	--with-random=/dev/random --without-skey
+CONFIGURE_ENV +=	CPPFLAGS="-I${INSTALL_LIBDIR}/openssl/include"
 FAKE_DEST_VAR =
 
 pre-fake:
