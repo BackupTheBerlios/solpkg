@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.3 2002/08/12 17:43:54 zigg Exp $
+# $Id: Makefile,v 1.4 2002/10/24 14:44:45 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		python
-PACKAGE_VERSION =	2.1.2
+PACKAGE_VERSION =	2.1.3
 
 PACKAGE_DESCRIPTION =	Python
 PACKAGE_CATEGORY =	utility
@@ -17,7 +17,8 @@ BUILD_MAKE_ARGS =
 FAKE_MAKE_ARGS +=	MANDIR="${FAKE_DIRECTORY}${INSTALL_MANDIR}"
 
 post-fake:
-	cd ${WORK_SOURCE} && \
-		install -c -m 755 Tools/scripts/pydoc \
-			${FAKE_DIRECTORY}${INSTALL_PREFIX}/bin
+	cp ${WORK_SOURCE}/Tools/scripts/pydoc \
+		${FAKE_DIRECTORY}${INSTALL_PREFIX}/bin
+	chmod 755 ${FAKE_DIRECTORY}${INSTALL_PREFIX}/bin/pydoc
+	chown root:root ${FAKE_DIRECTORY}${INSTALL_PREFIX}/bin/pydoc
 
