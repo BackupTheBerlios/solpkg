@@ -1,0 +1,9 @@
+Build notes for SPopenssh
+
+- You must have SPopenssl built and installed.
+
+- ANDIrand is a Solaris /dev/random implementation available from
+  http://www.cosy.sbg.ac.at/~andi/.
+
+$Id: README,v 1.1 2002/02/07 20:38:24 zigg Exp $
+

@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.1 2002/01/17 21:06:41 zigg Exp $
+# $Id: Makefile,v 1.2 2002/02/07 20:38:24 zigg Exp $
 
 include ../GLOBAL/global.mk
 
@@ -14,7 +14,8 @@ DIST_FILES =		Python-${PACKAGE_VERSION}.tgz
 WORK_SOURCE =		${WORK_DIRECTORY}/Python-${PACKAGE_VERSION}
 
 CONFIGURE_ENV =		OPT="${CFLAGS}"
-MAKE_BUILD_ARGS =
+BUILD_MAKE_ARGS =
+FAKE_MAKE_ARGS +=	MANDIR="${FAKE_DIRECTORY}${INSTALL_MANDIR}"
 
 post-fake:
 	cd ${WORK_SOURCE} && \

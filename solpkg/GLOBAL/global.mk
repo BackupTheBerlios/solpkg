@@ -1,33 +1,67 @@
-# $Id: global.mk,v 1.1 2001/12/14 19:50:02 zigg Exp $
+# $Id: global.mk,v 1.2 2002/02/07 20:38:24 zigg Exp $
 
-CC=			gcc
-CFLAGS=			-O2
-CXXFLAGS=		-O2
-CONFIGURE_ENV=		CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
-CONFIGURE_ARGS=		${FAKE_PREFIX_FLAG} --sysconfdir=/etc \
-			--localstatedir=/var
-CONFIGURE_PROGRAM=	./configure
-DIST_DIRECTORY=		${PORT_DIRECTORY}/../DIST
-FAKE_DIRECTORY=		${WORK_ROOT}/fake-${PACKAGE_FULLNAME}
-FAKE_PREFIX_FLAG=	--prefix='$${DESTDIR}${INSTALL_PREFIX}'
-INSTALL_PREFIX=		/usr
-MAKE_BUILD_ARGS=	CC="${CC}" CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
-MAKE_BUILD_ENV=		CC="${CC}" CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
-MAKE_FAKE_ARGS=		DESTDIR=${FAKE_DIRECTORY}
-MAKE_FAKE_ENV=		DESTDIR=${FAKE_DIRECTORY}
-MAKE_FAKE_TARGET=	install
-MAKE_PROGRAM=		make
-PACKAGE_FULLNAME=	${PACKAGE_NAME}-${PACKAGE_VERSION}
-PORT_DIRECTORY:sh=	pwd
-WORK_ROOT=		${PORT_DIRECTORY}
-WORK_DIRECTORY=		${WORK_ROOT}/work-${PACKAGE_FULLNAME}
-WORK_SOURCE=		${WORK_DIRECTORY}/${PACKAGE_FULLNAME}
+# Build phase parameters
+
+BUILD_MAKE_ARGS =	CC="${CC}" CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
+BUILD_MAKE_ENV =	CC="${CC}" CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
+
+# Configure phase parameters
+
+CONFIGURE_ENV =		CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
+CONFIGURE_ARGS =	--prefix='${FAKE_DEST_VAR}${INSTALL_PREFIX}' \
+			--localstatedir='${FAKE_DEST_VAR}${INSTALL_STATEDIR}' \
+			--mandir='${FAKE_DEST_VAR}${INSTALL_MANDIR}' \
+			--sysconfdir='${FAKE_DEST_VAR}${INSTALL_ETCDIR}'
+CONFIGURE_PROGRAM =	./configure
+
+# Distribution parameters
+
+DIST_DIRECTORY =	${SOLPKG_HOME}/DIST
+DIST_FILES =		${PACKAGE_SOURCE_NAME}.tar.gz
+
+# Fake install phase parameters
+
+FAKE_DEST_VAR =		$${DESTDIR}
+FAKE_DIRECTORY =	${WORK_ROOT}/fake-${PACKAGE_SOURCE_NAME}
+FAKE_PREFIX_FLAGS =	--prefix='$${DESTDIR}${INSTALL_PREFIX}'
+FAKE_MAKE_ARGS =	DESTDIR=${FAKE_DIRECTORY}
+FAKE_MAKE_ENV =		DESTDIR=${FAKE_DIRECTORY}
+FAKE_MAKE_TARGET =	install
+
+# Installation parameters
+
+INSTALL_PREFIX =	/usr
+INSTALL_ETCDIR =	/etc
+INSTALL_MANDIR =	${INSTALL_PREFIX}/share/man
+INSTALL_STATEDIR =	/var
+
+# Package parameters
+
+PACKAGE_PREFIX =	SP
+PACKAGE_SOLARIS_NAME = 	${PACKAGE_PREFIX}${PACKAGE_NAME}
+PACKAGE_SOURCE_NAME =	${PACKAGE_NAME}-${PACKAGE_VERSION}
+PACKAGE_REVISION =	1
+
+# Directories
+
+RECIPE_DIRECTORY:sh =	pwd
+SOLPKG_HOME =		${RECIPE_DIRECTORY}/..
+WORK_ROOT =		${RECIPE_DIRECTORY}
+WORK_DIRECTORY =	${WORK_ROOT}/work-${PACKAGE_SOURCE_NAME}
+WORK_SOURCE =		${WORK_DIRECTORY}/${PACKAGE_SOURCE_NAME}
+
+# Programs and program configuration
+
+MAKE_PROGRAM =		make
+CC = 			gcc
+CFLAGS =		-O2
+CXXFLAGS = 		-O2
 
 all:	build
 
 clean:	clean-fake
 	@echo "##"
-	@echo "## Cleaning build for ${PACKAGE_FULLNAME}"
+	@echo "## Cleaning build for ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
 	rm -f .extracted .configured .patched .built
 	rm -rf ${WORK_DIRECTORY}
@@ -36,7 +70,7 @@ extract:	.extracted
 
 .extracted:
 	@echo "##"
-	@echo "## Extracting ${PACKAGE_FULLNAME}"
+	@echo "## Extracting ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
 	@make pre-extract do-extract post-extract
 
@@ -57,7 +91,7 @@ patch:	.patched
 
 .patched:	.extracted
 	@echo "##"
-	@echo "## Patching ${PACKAGE_FULLNAME}"
+	@echo "## Patching ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
 	@make pre-patch do-patch post-patch
 
@@ -65,9 +99,9 @@ pre-patch:
 
 do-patch:
 	cd ${WORK_SOURCE} && \
-		if [ -f ${PORT_DIRECTORY}/patch-* ]; \
+		if [ -f ${RECIPE_DIRECTORY}/patch-* ]; \
 		then \
-			for patch_file in ${PORT_DIRECTORY}/patch-*; \
+			for patch_file in ${RECIPE_DIRECTORY}/patch-*; \
 			do \
 				patch -b -p0 < $$patch_file ; \
 			done; \
@@ -80,7 +114,7 @@ configure:	.configured
 
 .configured:	.patched
 	@echo "##"
-	@echo "## Configuring ${PACKAGE_FULLNAME}"
+	@echo "## Configuring ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
 	@make pre-configure do-configure post-configure
 
@@ -97,7 +131,7 @@ build:	.built
 
 .built:	.configured
 	@echo "##"
-	@echo "## Building ${PACKAGE_FULLNAME}"
+	@echo "## Building ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
 	@make pre-build do-build post-build
 
@@ -105,15 +139,15 @@ pre-build:
 
 do-build:
 	cd ${WORK_SOURCE} && \
-		${MAKE_BUILD_ENV} ${MAKE_PROGRAM} ${MAKE_BUILD_ARGS} \
-			${MAKE_BUILD_TARGET}
+		${BUILD_MAKE_ENV} ${MAKE_PROGRAM} ${BUILD_MAKE_ARGS} \
+			${BUILD_MAKE_TARGET}
 	touch .built
 
 post-build:
 
 clean-fake:
 	@echo "##"
-	@echo "## Cleaning fake install for ${PACKAGE_FULLNAME}"
+	@echo "## Cleaning fake install for ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
 	rm -f .faked .prototyped
 	rm -rf ${FAKE_DIRECTORY}
@@ -122,7 +156,7 @@ fake:	.faked
 
 .faked:	.built
 	@echo "##"
-	@echo "## Doing fake install for ${PACKAGE_FULLNAME}"
+	@echo "## Doing fake install for ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
 	@make pre-fake do-fake post-fake
 
@@ -131,8 +165,8 @@ pre-fake:
 do-fake:
 	mkdir -p ${FAKE_DIRECTORY}/usr
 	cd ${WORK_SOURCE} && \
-		AM_MAKEFLAGS="${MAKE_FAKE_ENV}" ${MAKE_FAKE_ENV} \
-			${MAKE_PROGRAM} ${MAKE_FAKE_ARGS} ${MAKE_FAKE_TARGET}
+		AM_MAKEFLAGS="${FAKE_MAKE_ENV}" ${FAKE_MAKE_ENV} \
+			${MAKE_PROGRAM} ${FAKE_MAKE_ARGS} ${FAKE_MAKE_TARGET}
 	touch .faked
 
 post-fake:
@@ -141,7 +175,7 @@ prototype:	.prototyped
 
 .prototyped:	.faked
 	@echo "##"
-	@echo "## Building package prototype for ${PACKAGE_FULLNAME}"
+	@echo "## Building package prototype for ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
 	@make pre-prototype do-prototype post-prototype
 
@@ -165,14 +199,14 @@ post-prototype:
 
 package:	prototype
 	@echo "##"
-	@echo "## Building package for ${PACKAGE_FULLNAME}"
+	@echo "## Building package for ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
 	@make pre-package do-package post-package
 
 pre-package:
 
 do-package:
-	echo PKG=${PACKAGE_NAME} >> ${FAKE_DIRECTORY}/pkginfo
+	echo PKG=${PACKAGE_SOLARIS_NAME} >> ${FAKE_DIRECTORY}/pkginfo
 	echo NAME="${PACKAGE_DESCRIPTION}" >> ${FAKE_DIRECTORY}/pkginfo
 	echo VERSION=${PACKAGE_VERSION} >> ${FAKE_DIRECTORY}/pkginfo
 	echo ARCH=`uname -p` >> ${FAKE_DIRECTORY}/pkginfo
@@ -183,11 +217,10 @@ do-package:
 	echo BASEDIR="/" >> ${FAKE_DIRECTORY}/pkginfo
 	cd ${FAKE_DIRECTORY} && pkgmk -r . -d . -f Prototype
 	pkgtrans -s ${FAKE_DIRECTORY} \
-		${WORK_ROOT}/${PACKAGE_FULLNAME}-`uname -s`-`uname -r`-`uname -p`.pkg \
-		${PACKAGE_NAME}
-	gzip ${WORK_ROOT}/${PACKAGE_FULLNAME}-`uname -s`-`uname -r`-`uname -p`.pkg
+		${WORK_ROOT}/${PACKAGE_SOLARIS_NAME}-${PACKAGE_VERSION}-`uname -s`-`uname -r`-`uname -p`.pkg \
+		${PACKAGE_SOLARIS_NAME}
 
 post-package:
 
-include ../GLOBAL/local.mk
+include ${SOLPKG_HOME}/GLOBAL/local.mk
 
