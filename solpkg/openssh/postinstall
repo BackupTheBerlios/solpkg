@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-#  $Id: postinstall,v 1.2 2002/06/26 17:47:31 zigg Exp $
+#  $Id: postinstall,v 1.3 2002/07/08 17:24:35 zigg Exp $
 #
 #  Generate keys, setup privsep prerequisites, and start OpenSSH
 #
@@ -24,13 +24,6 @@ then
         echo 'rsa key already exists; skipping key generation' >&2
 else
         /usr/bin/ssh-keygen -t rsa -f /etc/ssh_host_rsa_key -N ''
-fi
-
-if [ -d /var/empty ]
-then
-	echo '/var/empty exists; not creating' >&2
-else
-	mkdir /var/empty
 fi
 
 if /usr/bin/id sshd
