@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.1 2002/12/26 15:06:33 zigg Exp $
+# $Id: Makefile,v 1.2 2004/09/30 12:38:10 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		ghostsc
-PACKAGE_VERSION =	7.05
+PACKAGE_VERSION =	8.01
 
 PACKAGE_DESCRIPTION =	Ghostscript
 PACKAGE_CATEGORY =	utility
