@@ -1,0 +1,8 @@
+You need a /dev/random device for the normal OpenSSL build.
+
+See this Sun document for information on how to get /dev/random:
+
+http://sunsolve.sun.com/pub-cgi/retrieve.pl?doc=fsrdb/27606&zone_32=SUNWski
+
+$Id: README,v 1.1 2003/09/17 14:35:07 zigg Exp $
+

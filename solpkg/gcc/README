@@ -1,0 +1,17 @@
+When this package was upgraded to 3.2.3, it began to require gmake
+instead of Solaris make, in addition to a working compiler to
+bootstrap.
+
+If your Solaris package came with a "Software Companion CD", you can
+install gcc and gmake from there.  (If you do this, add /opt/sfw/bin to
+your PATH before starting this build.)
+
+The environment variable CC should be set to point to the compiler you
+will be using to bootstrap.
+
+If you're using a default INSTALL_PREFIX, /usr/lib/charset.alias will
+end up conflicting with the one from SUNWgnome-base-libs.  Both files'
+content are identical, save comments.
+
+$Id: README,v 1.1 2003/09/17 14:35:07 zigg Exp $ 
+
