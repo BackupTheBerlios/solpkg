@@ -1,0 +1,11 @@
+--- doc/crypto/des_modes.pod.orig	Tue Mar  5 10:30:13 2002
++++ doc/crypto/des_modes.pod	Wed Oct  1 08:37:20 2003
+@@ -2,7 +2,7 @@
+ 
+ =head1 NAME
+ 
+-Modes of DES - the variants of DES and other crypto algorithms of OpenSSL
++des_modes - the variants of DES and other crypto algorithms of OpenSSL
+ 
+ =head1 DESCRIPTION
+ 

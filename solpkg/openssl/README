@@ -4,5 +4,8 @@ See this Sun document for information on how to get /dev/random:
 
 http://sunsolve.sun.com/pub-cgi/retrieve.pl?doc=fsrdb/27606&zone_32=SUNWski
 
-$Id: README,v 1.1 2003/09/17 14:35:07 zigg Exp $
+A Perl 5 installation of some sort is also required for building the
+package as well as running some of the included tools.
+
+$Id: README,v 1.2 2003/10/01 14:30:38 zigg Exp $
 
