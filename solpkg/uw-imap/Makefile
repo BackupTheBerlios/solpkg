@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.6 2003/10/01 15:01:47 zigg Exp $
+# $Id: Makefile,v 1.7 2004/08/13 17:55:22 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =          uwimap
-PACKAGE_VERSION =       2002e
+PACKAGE_VERSION =       2004
 
 PACKAGE_SOURCE_NAME =   imap-${PACKAGE_VERSION}
 DIST_FILES =            ${PACKAGE_SOURCE_NAME}.tar.Z
@@ -22,11 +22,17 @@ post-extract:
 
 override-fake:
 	mkdir -p -m 755 ${FAKE_DIRECTORY}${INSTALL_PREFIX}/sbin
-	-chgrp bin ${FAKE_DIRECTORY}${INSTALL_PREFIX} \
+	-chown root:bin ${FAKE_DIRECTORY}${INSTALL_PREFIX} \
 		${FAKE_DIRECTORY}${INSTALL_PREFIX}/sbin
-	cp ${WORK_SOURCE}/ipopd/ipop2d ${FAKE_DIRECTORY}/usr/sbin/in.ipop2d
-	cp ${WORK_SOURCE}/ipopd/ipop3d ${FAKE_DIRECTORY}/usr/sbin/in.ipop3d
-	cp ${WORK_SOURCE}/imapd/imapd ${FAKE_DIRECTORY}/usr/sbin/in.imapd
+	cp ${WORK_SOURCE}/ipopd/ipop2d \
+		${FAKE_DIRECTORY}${INSTALL_PREFIX}/sbin/in.ipop2d
+	cp ${WORK_SOURCE}/ipopd/ipop3d \
+		${FAKE_DIRECTORY}${INSTALL_PREFIX}/sbin/in.ipop3d
+	cp ${WORK_SOURCE}/imapd/imapd \
+		${FAKE_DIRECTORY}${INSTALL_PREFIX}/sbin/in.imapd
+	-chown root:bin ${FAKE_DIRECTORY}${INSTALL_PREFIX}/sbin/in.ipop2d
+	-chown root:bin ${FAKE_DIRECTORY}${INSTALL_PREFIX}/sbin/in.ipop3d
+	-chown root:bin ${FAKE_DIRECTORY}${INSTALL_PREFIX}/sbin/in.imapd
 	@make fake-fixup-ownership
 
 post-prototype:
