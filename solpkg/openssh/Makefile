@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.2 2002/02/07 20:38:24 zigg Exp $
+# $Id: Makefile,v 1.3 2002/06/04 13:21:37 zigg Exp $
 
 include ../GLOBAL/global.mk
 
@@ -9,7 +9,7 @@ PACKAGE_DESCRIPTION =	OpenSSH
 PACKAGE_VENDOR =	OpenBSD
 PACKAGE_CATEGORY =	utility
 
-CONFIGURE_ARGS +=	--with-random=/dev/random
+CONFIGURE_ARGS +=	--with-random=/dev/random --without-skey
 FAKE_DEST_VAR =
 
 post-fake:

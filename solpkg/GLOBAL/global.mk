@@ -1,4 +1,4 @@
-# $Id: global.mk,v 1.2 2002/02/07 20:38:24 zigg Exp $
+# $Id: global.mk,v 1.3 2002/06/04 13:21:37 zigg Exp $
 
 # Build phase parameters
 
@@ -32,7 +32,8 @@ FAKE_MAKE_TARGET =	install
 
 INSTALL_PREFIX =	/usr
 INSTALL_ETCDIR =	/etc
-INSTALL_MANDIR =	${INSTALL_PREFIX}/share/man
+INSTALL_MANDIR =	${INSTALL_SHAREDIR}/man
+INSTALL_SHAREDIR =	${INSTALL_PREFIX}/share
 INSTALL_STATEDIR =	/var
 
 # Package parameters
