@@ -1,0 +1,16 @@
+--- states/hl/Makefile.in.orig	Wed Mar  5 02:40:07 2003
++++ states/hl/Makefile.in	Tue Sep  2 11:40:24 2003
+@@ -330,10 +330,10 @@
+ 
+ 
+ install-data-local:
+-	$(top_srcdir)/mkinstalldirs $(datadir)/enscript
+-	$(top_srcdir)/mkinstalldirs $(datadir)/enscript/hl
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(datadir)/enscript
++	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(datadir)/enscript/hl
+ 	for f in $(states); do \
+-	  $(INSTALL_DATA) $(srcdir)/$$f $(datadir)/enscript/hl/$$f; \
++	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(datadir)/enscript/hl/$$f; \
+ 	done
+ 
+ uninstall-local:
