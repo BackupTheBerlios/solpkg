@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.8 2002/10/24 01:29:30 zigg Exp $
+# $Id: Makefile,v 1.9 2002/11/30 19:16:12 zigg Exp $
 
 include ../GLOBAL/global.mk
 
@@ -8,16 +8,17 @@ PACKAGE_VERSION =	3.5p1
 PACKAGE_DESCRIPTION =	OpenSSH
 PACKAGE_CATEGORY =	utility
 
+INSTALL_ETCDIR =	/etc/ssh
 INSTALL_LIBEXECDIR =	${INSTALL_LIBDIR}/ssh
 CONFIGURE_ARGS +=	--with-random=/dev/random --without-skey
 FAKE_DEST_VAR =
 
-post-fake:
+pre-fake:
 	mkdir -p ${FAKE_DIRECTORY}/etc/init.d
 	cp ${RECIPE_DIRECTORY}/init_d_openssh \
 		${FAKE_DIRECTORY}/etc/init.d/openssh
 	chmod 755 ${FAKE_DIRECTORY}/etc/init.d/openssh
-	chown root:sys ${FAKE_DIRECTORY}/etc/init.d/openssh
+	-chgrp sys ${FAKE_DIRECTORY}/etc/init.d/openssh
 	mkdir -p ${FAKE_DIRECTORY}/etc/rcS.d
 	cd ${FAKE_DIRECTORY}/etc/rcS.d && ln -s ../init.d/openssh K03openssh
 	mkdir -p ${FAKE_DIRECTORY}/etc/rc0.d
@@ -28,6 +29,12 @@ post-fake:
 	cd ${FAKE_DIRECTORY}/etc/rc2.d && ln -s ../init.d/openssh K03openssh
 	mkdir -p ${FAKE_DIRECTORY}/etc/rc3.d
 	cd ${FAKE_DIRECTORY}/etc/rc3.d && ln -s ../init.d/openssh S89openssh
+
+post-fake:
+	mkdir -p ${FAKE_DIRECTORY}${INSTALL_SHAREDIR}/examples/openssh
+	mv ${FAKE_DIRECTORY}/etc/ssh/ssh*_config \
+		${FAKE_DIRECTORY}${INSTALL_SHAREDIR}/examples/openssh/
+	-chgrp sys ${FAKE_DIRECTORY}/etc/ssh
 
 post-prototype:
 	cp ${RECIPE_DIRECTORY}/depend \
