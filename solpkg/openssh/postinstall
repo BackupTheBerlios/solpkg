@@ -1,29 +1,44 @@
 #!/bin/sh
 #
-#  $Id: postinstall,v 1.1 2001/11/09 18:24:35 zigg Exp $
+#  $Id: postinstall,v 1.2 2002/06/26 17:47:31 zigg Exp $
 #
-#  Generate keys and start OpenSSH
+#  Generate keys, setup privsep prerequisites, and start OpenSSH
 #
 
 if [ -f /etc/ssh_host_key ]
 then
-        echo 'rsa1 key already exists; skipping key generation'
+        echo 'rsa1 key already exists; skipping key generation' >&2
 else
         /usr/bin/ssh-keygen -t rsa1 -f /etc/ssh_host_key -N ''
 fi
 
 if [ -f /etc/ssh_host_dsa_key ]
 then
-        echo 'dsa key already exists; skipping key generation'
+        echo 'dsa key already exists; skipping key generation' >&2
 else
         /usr/bin/ssh-keygen -t dsa -f /etc/ssh_host_dsa_key -N ''
 fi
 
 if [ -f /etc/ssh_host_rsa_key ]
 then
-        echo 'rsa key already exists; skipping key generation'
+        echo 'rsa key already exists; skipping key generation' >&2
 else
         /usr/bin/ssh-keygen -t rsa -f /etc/ssh_host_rsa_key -N ''
+fi
+
+if [ -d /var/empty ]
+then
+	echo '/var/empty exists; not creating' >&2
+else
+	mkdir /var/empty
+fi
+
+if /usr/bin/id sshd
+then
+	echo 'sshd user already exists; not adding' >&2
+else
+	/usr/sbin/groupadd sshd
+	/usr/sbin/useradd -d /var/empty -g sshd sshd
 fi
 
 /etc/init.d/openssh start
