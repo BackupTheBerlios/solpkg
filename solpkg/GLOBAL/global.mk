@@ -1,4 +1,4 @@
-# $Id: global.mk,v 1.10 2003/10/14 18:31:26 zigg Exp $
+# $Id: global.mk,v 1.11 2004/08/13 17:44:41 zigg Exp $
 
 # Build phase parameters
 
@@ -73,7 +73,7 @@ PROTOTYPE_TARGET =	do-prototype
 RECIPE_DIRECTORY:sh =	pwd
 SOLPKG_HOME =		${RECIPE_DIRECTORY}/..
 WORK_ROOT =		${RECIPE_DIRECTORY}
-WORK_DIRECTORY =	${WORK_ROOT}/work-${PACKAGE_SOURCE_NAME}
+WORK_DIRECTORY =	${WORK_ROOT}/work-${PACKAGE_NAME}-${PACKAGE_VERSION}
 WORK_SOURCE =		${WORK_DIRECTORY}/${PACKAGE_SOURCE_NAME}
 
 # Programs and program configuration
@@ -87,7 +87,7 @@ all:	build
 
 clean:	clean-fake
 	@echo "##"
-	@echo "## Cleaning build for ${PACKAGE_SOURCE_NAME}"
+	@echo "## Cleaning build for ${PACKAGE_NAME}
 	@echo "##"
 	rm -f .extracted .configured .patched .built
 	rm -rf ${WORK_DIRECTORY}
@@ -96,7 +96,7 @@ extract:	.extracted
 
 .extracted:
 	@echo "##"
-	@echo "## Extracting ${PACKAGE_SOURCE_NAME}"
+	@echo "## Extracting ${PACKAGE_NAME}
 	@echo "##"
 	@make pre-extract ${EXTRACT_TARGET} post-extract
 	touch .extracted
@@ -117,7 +117,7 @@ patch:	.patched
 
 .patched:	.extracted
 	@echo "##"
-	@echo "## Patching ${PACKAGE_SOURCE_NAME}"
+	@echo "## Patching ${PACKAGE_NAME}"
 	@echo "##"
 	@make pre-patch ${PATCH_TARGET} post-patch
 	touch .patched
@@ -140,7 +140,7 @@ configure:	.configured
 
 .configured:	.patched
 	@echo "##"
-	@echo "## Configuring ${PACKAGE_SOURCE_NAME}"
+	@echo "## Configuring ${PACKAGE_NAME}"
 	@echo "##"
 	@make pre-configure ${CONFIGURE_TARGET} post-configure
 	touch .configured
@@ -167,7 +167,7 @@ build:	.built
 
 .built:	.configured
 	@echo "##"
-	@echo "## Building ${PACKAGE_SOURCE_NAME}"
+	@echo "## Building ${PACKAGE_NAME}"
 	@echo "##"
 	@make pre-build ${BUILD_TARGET} post-build
 	touch .built
@@ -183,7 +183,7 @@ post-build:
 
 clean-fake:
 	@echo "##"
-	@echo "## Cleaning fake install for ${PACKAGE_SOURCE_NAME}"
+	@echo "## Cleaning fake install for ${PACKAGE_NAME}"
 	@echo "##"
 	rm -f .faked .prototyped
 	rm -rf ${FAKE_DIRECTORY}
@@ -192,7 +192,7 @@ fake:	.faked
 
 .faked:	.built
 	@echo "##"
-	@echo "## Doing fake install for ${PACKAGE_SOURCE_NAME}"
+	@echo "## Doing fake install for ${PACKAGE_NAME}"
 	@echo "##"
 	@make pre-fake ${FAKE_TARGET} post-fake
 	touch .faked
@@ -222,7 +222,7 @@ prototype:	.prototyped
 
 .prototyped:	.faked
 	@echo "##"
-	@echo "## Building package prototype for ${PACKAGE_SOURCE_NAME}"
+	@echo "## Building package prototype for ${PACKAGE_NAME}"
 	@echo "##"
 	@make pre-prototype ${PROTOTYPE_TARGET} post-prototype
 
@@ -248,7 +248,7 @@ post-prototype:
 
 package:	prototype
 	@echo "##"
-	@echo "## Building package for ${PACKAGE_SOURCE_NAME}"
+	@echo "## Building package for ${PACKAGE_NAME}"
 	@echo "##"
 	@make pre-package do-package post-package
 
