@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.2 2003/09/17 14:32:35 zigg Exp $
+# $Id: Makefile,v 1.3 2004/08/13 17:46:03 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		fetchmail
-PACKAGE_VERSION =	6.2.4
+PACKAGE_VERSION =	6.2.0
 
 PACKAGE_DESCRIPTION =	fetchmail
 PACKAGE_CATEGORY =	utility
