@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.1 2003/09/17 14:37:55 zigg Exp $
+# $Id: Makefile,v 1.2 2004/08/13 17:54:21 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		tora
-PACKAGE_VERSION =	1.3.11
+PACKAGE_VERSION =	1.3.13
 
 DIST_FILES =		${PACKAGE_NAME}-alpha-${PACKAGE_VERSION}.tar.gz
 
