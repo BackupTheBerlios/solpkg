@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.1 2002/02/12 13:16:15 zigg Exp $
+# $Id: Makefile,v 1.2 2002/02/12 13:19:40 zigg Exp $
 
 include ../GLOBAL/global.mk
 
@@ -11,7 +11,7 @@ PACKAGE_CATEGORY =	utility
 
 PACKAGE_SOURCE_NAME =	x11-ssh-askpass-${PACKAGE_VERSION}
 
-MAKE_BUILD_ARGS+=	LDFLAGS=""
+BUILD_MAKE_ARGS +=	CCOPTIONS=""
 
 post-configure:
 	cd ${WORK_SOURCE} && xmkmf && make includes
