@@ -1,0 +1,10 @@
+Build notes for SPghostsc
+
+- This recipe requires that you have SUNWpng and SUNWjpg installed
+  before building, as in Solaris 9.
+
+- This recipe could also easily be tweaked to use other png and jpeg
+  libraries.
+
+$Id: README,v 1.1 2002/12/26 15:06:33 zigg Exp $
+
