@@ -2,6 +2,8 @@
 /usr/bin
 /usr/include
 /usr/lib
+/usr/lib/sparcv9
+/usr/lib/ssh
 /usr/openwin
 /usr/openwin/bin
 /usr/openwin/lib

@@ -1,4 +1,4 @@
-# $Id: global.mk,v 1.8 2002/11/30 19:13:04 zigg Exp $
+# $Id: global.mk,v 1.9 2003/09/17 14:30:12 zigg Exp $
 
 # Build phase parameters
 
@@ -10,6 +10,7 @@ BUILD_TARGET =		do-build
 
 CONFIGURE_ENV =		CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 CONFIGURE_ARGS =	--prefix='${FAKE_DEST_VAR}${INSTALL_PREFIX}' \
+			--includedir='${FAKE_DEST_VAR}${INSTALL_INCLUDEDIR}' \
 			--infodir='${FAKE_DEST_VAR}${INSTALL_INFODIR}' \
 			--libdir='${FAKE_DEST_VAR}${INSTALL_LIBDIR}' \
 			--libexecdir='${FAKE_DEST_VAR}${INSTALL_LIBEXECDIR}' \
@@ -44,6 +45,7 @@ FAKE_TARGET =		do-fake
 
 INSTALL_PREFIX =	/usr
 INSTALL_ETCDIR =	/etc
+INSTALL_INCLUDEDIR =	${INSTALL_LIBDIR}/${PACKAGE_NAME}/include
 INSTALL_INFODIR =	${INSTALL_SHAREDIR}/info
 INSTALL_LIBDIR =	${INSTALL_PREFIX}/lib
 INSTALL_LIBEXECDIR =	${INSTALL_LIBDIR}/${PACKAGE_NAME}
@@ -149,6 +151,16 @@ do-configure:
 	cd ${WORK_SOURCE} && \
 		${CONFIGURE_ENV} ${CONFIGURE_PROGRAM} ${CONFIGURE_ARGS}
 
+# Use this target to build in a separate directory from the extract
+# directory.
+
+do-configure-separate:
+	-cd ${WORK_DIRECTORY} && mv ${WORK_SOURCE} .source
+	-mkdir -p ${WORK_SOURCE}
+	cd ${WORK_SOURCE} && ${CONFIGURE_ENV} \
+		${WORK_DIRECTORY}/.source/${CONFIGURE_PROGRAM} \
+		${CONFIGURE_ARGS}
+
 post-configure:
 
 build:	.built
@@ -192,6 +204,9 @@ do-fake:
 	cd ${WORK_SOURCE} && \
 		AM_MAKEFLAGS="${FAKE_MAKE_ENV}" ${FAKE_MAKE_ENV} \
 			${MAKE_PROGRAM} ${FAKE_MAKE_ARGS} ${FAKE_MAKE_TARGET}
+	@make fake-fixup-ownership
+
+fake-fixup-ownership:
 	-for d in `cat ${SOLPKG_HOME}/GLOBAL/group_bin.txt`; \
 	do \
 		chgrp bin ${FAKE_DIRECTORY}$$d ; \
