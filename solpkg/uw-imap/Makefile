@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.4 2003/02/07 15:06:16 zigg Exp $
+# $Id: Makefile,v 1.5 2003/09/17 14:27:16 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =          uwimap
-PACKAGE_VERSION =       2002b
+PACKAGE_VERSION =       2002d
 
 PACKAGE_SOURCE_NAME =   imap-${PACKAGE_VERSION}
 DIST_FILES =            ${PACKAGE_SOURCE_NAME}.tar.Z
@@ -17,13 +17,17 @@ FAKE_TARGET =           override-fake
 
 # XXX this recipe currently ignores CFLAGS, gotta fix that
 
+post-extract:
+	chmod -R u+w ${WORK_SOURCE}
+
 override-fake:
 	mkdir -p -m 755 ${FAKE_DIRECTORY}${INSTALL_PREFIX}/sbin
-	chgrp bin ${FAKE_DIRECTORY}${INSTALL_PREFIX} \
+	-chgrp bin ${FAKE_DIRECTORY}${INSTALL_PREFIX} \
 		${FAKE_DIRECTORY}${INSTALL_PREFIX}/sbin
 	cp ${WORK_SOURCE}/ipopd/ipop2d ${FAKE_DIRECTORY}/usr/sbin/in.ipop2d
 	cp ${WORK_SOURCE}/ipopd/ipop3d ${FAKE_DIRECTORY}/usr/sbin/in.ipop3d
 	cp ${WORK_SOURCE}/imapd/imapd ${FAKE_DIRECTORY}/usr/sbin/in.imapd
+	@make fake-fixup-ownership
 
 post-prototype:
 	cp ${RECIPE_DIRECTORY}/depend ${FAKE_DIRECTORY}

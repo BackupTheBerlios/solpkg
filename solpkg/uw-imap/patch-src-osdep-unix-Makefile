@@ -9,7 +9,7 @@
  SSLCERTS=$(SSLDIR)/certs
 -SSLINCLUDE=$(SSLDIR)/include
 -SSLLIB=$(SSLDIR)/lib
-+SSLINCLUDE=/usr/include
++SSLINCLUDE=/usr/lib/openssl/include
 +SSLLIB=/usr/lib
  
  SSLCRYPTO=-lcrypto
