@@ -1,4 +1,4 @@
-# $Id: global.mk,v 1.9 2003/09/17 14:30:12 zigg Exp $
+# $Id: global.mk,v 1.10 2003/10/14 18:31:26 zigg Exp $
 
 # Build phase parameters
 
@@ -240,6 +240,7 @@ do-prototype:
 		find . | pkgproto | grep -v '^f none Prototype' | \
 		sed -e 's|^d none |d none /|' | \
 		sed -e 's|^f none |f none /|' | \
+		sed -e 's|^l none |l none /|' | \
 		sed -e 's|^s none |s none /|' > Prototype && \
 		echo i pkginfo >> Prototype
 
