@@ -1,12 +1,13 @@
---- src/osdep/unix/Makefile.orig	Mon Oct 14 18:45:24 2002
-+++ src/osdep/unix/Makefile	Mon Dec  2 08:37:37 2002
-@@ -28,10 +28,10 @@
+--- src/osdep/unix/Makefile.orig	Wed Oct  1 10:42:22 2003
++++ src/osdep/unix/Makefile	Wed Oct  1 10:45:17 2003
+@@ -28,11 +28,11 @@
  
  # Extended flags needed for SSL.  You may need to modify.
  
 -SSLDIR=/usr/local/ssl
 +SSLDIR=/etc/ssl
  SSLCERTS=$(SSLDIR)/certs
+ SSLKEYS=$(SSLCERTS)
 -SSLINCLUDE=$(SSLDIR)/include
 -SSLLIB=$(SSLDIR)/lib
 +SSLINCLUDE=/usr/lib/openssl/include
