@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+#  $Id: preremove,v 1.1 2001/11/08 15:08:43 zigg Exp $
+#
+#  Stop OpenSSH before removal
+#
+
+/etc/init.d/openssh stop
+
