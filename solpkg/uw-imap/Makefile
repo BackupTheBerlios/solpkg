@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.3 2002/12/02 13:57:11 zigg Exp $
+# $Id: Makefile,v 1.4 2003/02/07 15:06:16 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =          uwimap
-PACKAGE_VERSION =       2002
+PACKAGE_VERSION =       2002b
 
 PACKAGE_SOURCE_NAME =   imap-${PACKAGE_VERSION}
 DIST_FILES =            ${PACKAGE_SOURCE_NAME}.tar.Z
