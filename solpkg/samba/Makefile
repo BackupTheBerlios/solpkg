@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.3 2002/08/12 17:43:54 zigg Exp $
+# $Id: Makefile,v 1.4 2003/02/05 18:12:03 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		samba
-PACKAGE_VERSION = 	2.2.5
+PACKAGE_VERSION = 	2.2.7a
 
 PACKAGE_DESCRIPTION =	Samba
 PACKAGE_CATEGORY =	system
