@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.1 2002/02/12 21:04:55 zigg Exp $
+# $Id: Makefile,v 1.2 2002/07/08 17:18:47 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		samba
-PACKAGE_VERSION = 	2.2.3a
+PACKAGE_VERSION = 	2.2.5
 
 PACKAGE_DESCRIPTION =	Samba
 PACKAGE_VENDOR =	Samba Team
@@ -13,7 +13,8 @@ CONFIGURE_ARGS +=	--with-lockdir='${FAKE_DEST_VAR}${INSTALL_STATEDIR}/run' \
 			--with-configdir='${FAKE_DEST_VAR}${INSTALL_ETCDIR}/samba' \
 			--with-privatedir='${FAKE_DEST_VAR}${INSTALL_ETCDIR}/samba' \
 			--with-swatdir='${FAKE_DEST_VAR}${INSTALL_SHAREDIR}/samba' \
-			--with-logfilebase='${FAKE_DEST_VAR}${INSTALL_STATEDIR}/log'
+			--with-logfilebase='${FAKE_DEST_VAR}${INSTALL_STATEDIR}/log' \
+			--with-included-popt
 
 WORK_SOURCE =		${WORK_DIRECTORY}/${PACKAGE_SOURCE_NAME}/source
 
