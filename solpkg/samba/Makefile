@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.2 2002/07/08 17:18:47 zigg Exp $
+# $Id: Makefile,v 1.3 2002/08/12 17:43:54 zigg Exp $
 
 include ../GLOBAL/global.mk
 
@@ -6,7 +6,6 @@ PACKAGE_NAME =		samba
 PACKAGE_VERSION = 	2.2.5
 
 PACKAGE_DESCRIPTION =	Samba
-PACKAGE_VENDOR =	Samba Team
 PACKAGE_CATEGORY =	system
 
 CONFIGURE_ARGS +=	--with-lockdir='${FAKE_DEST_VAR}${INSTALL_STATEDIR}/run' \

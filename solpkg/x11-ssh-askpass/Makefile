@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.3 2002/07/08 17:24:35 zigg Exp $
+# $Id: Makefile,v 1.4 2002/08/12 17:43:54 zigg Exp $
 
 include ../GLOBAL/global.mk
 
@@ -6,7 +6,6 @@ PACKAGE_NAME =		xsshask
 PACKAGE_VERSION =	1.2.4.1
 
 PACKAGE_DESCRIPTION =	x11-ssh-askpass
-PACKAGE_VENDOR =	Jim Knoble
 PACKAGE_CATEGORY =	utility
 
 PACKAGE_SOURCE_NAME =	x11-ssh-askpass-${PACKAGE_VERSION}

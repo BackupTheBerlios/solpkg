@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.2 2002/02/07 20:38:24 zigg Exp $
+# $Id: Makefile,v 1.3 2002/08/12 17:43:54 zigg Exp $
 
 include ../GLOBAL/global.mk
 
@@ -6,7 +6,6 @@ PACKAGE_NAME =		python
 PACKAGE_VERSION =	2.1.2
 
 PACKAGE_DESCRIPTION =	Python
-PACKAGE_VENDOR =	PythonLabs
 PACKAGE_CATEGORY =	utility
 
 DIST_FILES =		Python-${PACKAGE_VERSION}.tgz

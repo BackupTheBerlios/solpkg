@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.2 2002/02/07 20:38:24 zigg Exp $
+# $Id: Makefile,v 1.3 2002/08/12 17:43:54 zigg Exp $
 
 include ../GLOBAL/global.mk
 
@@ -6,7 +6,6 @@ PACKAGE_NAME=		gcc
 PACKAGE_VERSION=	2.95.3
 
 PACKAGE_DESCRIPTION=	GNU Compiler Collection
-PACKAGE_VENDOR=		Free Software Foundation
 PACKAGE_CATEGORY=	utility
 
 DIST_FILES=		${PACKAGE_NAME}-${PACKAGE_VERSION}.tar.gz

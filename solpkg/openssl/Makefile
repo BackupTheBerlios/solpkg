@@ -1,12 +1,11 @@
-# $Id: Makefile,v 1.3 2002/06/25 18:47:49 zigg Exp $
+# $Id: Makefile,v 1.4 2002/08/12 17:43:54 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		openssl
-PACKAGE_VERSION =	0.9.6d
+PACKAGE_VERSION =	0.9.6e
 
 PACKAGE_DESCRIPTION =	OpenSSL
-PACKAGE_VENDOR =	The OpenSSL Project
 PACKAGE_CATEGORY =	system
 
 CONFIGURE_PROGRAM =	./config

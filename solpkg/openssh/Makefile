@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.6 2002/07/08 17:24:35 zigg Exp $
+# $Id: Makefile,v 1.7 2002/08/12 17:43:54 zigg Exp $
 
 include ../GLOBAL/global.mk
 
@@ -6,7 +6,6 @@ PACKAGE_NAME =		openssh
 PACKAGE_VERSION =	3.4p1
 
 PACKAGE_DESCRIPTION =	OpenSSH
-PACKAGE_VENDOR =	OpenBSD
 PACKAGE_CATEGORY =	utility
 
 INSTALL_LIBEXECDIR =	${INSTALL_LIBDIR}/ssh

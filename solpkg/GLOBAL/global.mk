@@ -1,4 +1,4 @@
-# $Id: global.mk,v 1.6 2002/07/26 13:08:58 zigg Exp $
+# $Id: global.mk,v 1.7 2002/08/12 17:43:54 zigg Exp $
 
 # Build phase parameters
 
@@ -236,7 +236,7 @@ do-package:
 	echo ARCH=`uname -p` >> ${FAKE_DIRECTORY}/pkginfo
 	echo CLASSES="none" >> ${FAKE_DIRECTORY}/pkginfo
 	echo CATEGORY=${PACKAGE_CATEGORY} >> ${FAKE_DIRECTORY}/pkginfo
-	echo VENDOR="${PACKAGE_VENDOR}" >> ${FAKE_DIRECTORY}/pkginfo
+	echo VENDOR="Solaris Package System <http://solpkg.berlios.de/>" >> ${FAKE_DIRECTORY}/pkginfo
 	echo EMAIL="" >> ${FAKE_DIRECTORY}/pkginfo
 	echo BASEDIR="/" >> ${FAKE_DIRECTORY}/pkginfo
 	cd ${FAKE_DIRECTORY} && pkgmk -r . -d . -f Prototype

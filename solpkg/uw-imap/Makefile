@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.1 2002/07/26 13:10:19 zigg Exp $
+# $Id: Makefile,v 1.2 2002/08/12 17:43:54 zigg Exp $
 
 include ../GLOBAL/global.mk
 
@@ -9,7 +9,6 @@ PACKAGE_SOURCE_NAME =	imap-${PACKAGE_VERSION}
 DIST_FILES =		${PACKAGE_SOURCE_NAME}.tar.Z
 
 PACKAGE_DESCRIPTION =	IMAP
-PACKAGE_VENDOR =	University of Washington
 PACKAGE_CATEGORY =	application
 
 CONFIGURE_TARGET =	null
