@@ -1,0 +1,14 @@
+# $Id: Makefile,v 1.1 2003/09/17 14:38:37 zigg Exp $
+
+include ../GLOBAL/global.mk
+
+PACKAGE_NAME =		libidl
+PACKAGE_VERSION =	0.6.8
+
+PACKAGE_SOURCE_NAME =	libIDL-${PACKAGE_VERSION}
+
+PACKAGE_DESCRIPTION =	libIDL
+PACKAGE_CATEGORY =	system
+
+FAKE_DEST_VAR =
+
