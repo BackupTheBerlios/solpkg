@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.5 2003/09/17 14:31:07 zigg Exp $
+# $Id: Makefile,v 1.6 2004/08/13 17:48:28 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		gcc
-PACKAGE_VERSION =	3.2.3
+PACKAGE_VERSION =	3.3.4
 
 PACKAGE_DESCRIPTION =	GNU Compiler Collection
 PACKAGE_CATEGORY =	system
