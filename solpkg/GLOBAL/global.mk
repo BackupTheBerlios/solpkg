@@ -1,9 +1,10 @@
-# $Id: global.mk,v 1.5 2002/07/15 12:05:47 zigg Exp $
+# $Id: global.mk,v 1.6 2002/07/26 13:08:58 zigg Exp $
 
 # Build phase parameters
 
 BUILD_MAKE_ARGS =	CC="${CC}" CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 BUILD_MAKE_ENV =	CC="${CC}" CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
+BUILD_TARGET =		do-build
 
 # Configure phase parameters
 
@@ -16,11 +17,18 @@ CONFIGURE_ARGS =	--prefix='${FAKE_DEST_VAR}${INSTALL_PREFIX}' \
 			--mandir='${FAKE_DEST_VAR}${INSTALL_MANDIR}' \
 			--sysconfdir='${FAKE_DEST_VAR}${INSTALL_ETCDIR}'
 CONFIGURE_PROGRAM =	./configure
+CONFIGURE_TARGET =	do-configure
 
 # Distribution parameters
 
 DIST_DIRECTORY =	${SOLPKG_HOME}/DIST
 DIST_FILES =		${PACKAGE_SOURCE_NAME}.tar.gz
+
+# Extract phase parameters
+
+EXTRACT_DECOMP_PROGRAM = gzip -dc
+EXTRACT_DETAR_PROGRAM =	tar xf -
+EXTRACT_TARGET =	do-extract
 
 # Fake install phase parameters
 
@@ -30,6 +38,7 @@ FAKE_PREFIX_FLAGS =	--prefix='$${DESTDIR}${INSTALL_PREFIX}'
 FAKE_MAKE_ARGS =	DESTDIR=${FAKE_DIRECTORY}
 FAKE_MAKE_ENV =		DESTDIR=${FAKE_DIRECTORY}
 FAKE_MAKE_TARGET =	install
+FAKE_TARGET =		do-fake
 
 # Installation parameters
 
@@ -48,6 +57,14 @@ PACKAGE_PREFIX =	SP
 PACKAGE_SOLARIS_NAME = 	${PACKAGE_PREFIX}${PACKAGE_NAME}
 PACKAGE_SOURCE_NAME =	${PACKAGE_NAME}-${PACKAGE_VERSION}
 PACKAGE_REVISION =	1
+
+# Patch phase parameters
+
+PATCH_TARGET =		do-patch
+
+# Prototype phase parameters
+
+PROTOTYPE_TARGET =	do-prototype
 
 # Directories
 
@@ -79,7 +96,8 @@ extract:	.extracted
 	@echo "##"
 	@echo "## Extracting ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
-	@make pre-extract do-extract post-extract
+	@make pre-extract ${EXTRACT_TARGET} post-extract
+	touch .extracted
 
 pre-extract:
 
@@ -88,9 +106,8 @@ do-extract:
 	cd ${WORK_DIRECTORY} && \
 		for dist_file in ${DIST_FILES}; \
 		do \
-			gzip -dc ${DIST_DIRECTORY}/$$dist_file | tar xf - ; \
+			${EXTRACT_DECOMP_PROGRAM} ${DIST_DIRECTORY}/$$dist_file | ${EXTRACT_DETAR_PROGRAM} ; \
 		done
-	touch .extracted
 
 post-extract:
 
@@ -100,7 +117,8 @@ patch:	.patched
 	@echo "##"
 	@echo "## Patching ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
-	@make pre-patch do-patch post-patch
+	@make pre-patch ${PATCH_TARGET} post-patch
+	touch .patched
 
 pre-patch:
 
@@ -113,7 +131,6 @@ do-patch:
 				patch -b -p0 < $$patch_file ; \
 			done; \
 		fi
-	touch .patched
 
 post-patch:
 
@@ -123,14 +140,14 @@ configure:	.configured
 	@echo "##"
 	@echo "## Configuring ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
-	@make pre-configure do-configure post-configure
+	@make pre-configure ${CONFIGURE_TARGET} post-configure
+	touch .configured
 
 pre-configure:
 
 do-configure:
 	cd ${WORK_SOURCE} && \
 		${CONFIGURE_ENV} ${CONFIGURE_PROGRAM} ${CONFIGURE_ARGS}
-	touch .configured
 
 post-configure:
 
@@ -140,7 +157,8 @@ build:	.built
 	@echo "##"
 	@echo "## Building ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
-	@make pre-build do-build post-build
+	@make pre-build ${BUILD_TARGET} post-build
+	touch .built
 
 pre-build:
 
@@ -148,7 +166,6 @@ do-build:
 	cd ${WORK_SOURCE} && \
 		${BUILD_MAKE_ENV} ${MAKE_PROGRAM} ${BUILD_MAKE_ARGS} \
 			${BUILD_MAKE_TARGET}
-	touch .built
 
 post-build:
 
@@ -165,7 +182,8 @@ fake:	.faked
 	@echo "##"
 	@echo "## Doing fake install for ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
-	@make pre-fake do-fake post-fake
+	@make pre-fake ${FAKE_TARGET} post-fake
+	touch .faked
 
 pre-fake:
 
@@ -174,7 +192,6 @@ do-fake:
 	cd ${WORK_SOURCE} && \
 		AM_MAKEFLAGS="${FAKE_MAKE_ENV}" ${FAKE_MAKE_ENV} \
 			${MAKE_PROGRAM} ${FAKE_MAKE_ARGS} ${FAKE_MAKE_TARGET}
-	touch .faked
 
 post-fake:
 
@@ -184,7 +201,7 @@ prototype:	.prototyped
 	@echo "##"
 	@echo "## Building package prototype for ${PACKAGE_SOURCE_NAME}"
 	@echo "##"
-	@make pre-prototype do-prototype post-prototype
+	@make pre-prototype ${PROTOTYPE_TARGET} post-prototype
 
 pre-prototype:
 
@@ -228,6 +245,8 @@ do-package:
 		${PACKAGE_SOLARIS_NAME}
 
 post-package:
+
+null:
 
 include ${SOLPKG_HOME}/GLOBAL/local.mk
 
