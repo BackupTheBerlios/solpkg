@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+#  $Id: postinstall,v 1.1 2001/11/09 18:24:35 zigg Exp $
+#
+#  Generate keys and start OpenSSH
+#
+
+if [ -f /etc/ssh_host_key ]
+then
+        echo 'rsa1 key already exists; skipping key generation'
+else
+        /usr/bin/ssh-keygen -t rsa1 -f /etc/ssh_host_key -N ''
+fi
+
+if [ -f /etc/ssh_host_dsa_key ]
+then
+        echo 'dsa key already exists; skipping key generation'
+else
+        /usr/bin/ssh-keygen -t dsa -f /etc/ssh_host_dsa_key -N ''
+fi
+
+if [ -f /etc/ssh_host_rsa_key ]
+then
+        echo 'rsa key already exists; skipping key generation'
+else
+        /usr/bin/ssh-keygen -t rsa -f /etc/ssh_host_rsa_key -N ''
+fi
+
+/etc/init.d/openssh start
+
