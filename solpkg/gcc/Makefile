@@ -1,20 +1,27 @@
-# $Id: Makefile,v 1.4 2003/02/05 19:05:34 zigg Exp $
+# $Id: Makefile,v 1.5 2003/09/17 14:31:07 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		gcc
-PACKAGE_VERSION =	2.95.3
+PACKAGE_VERSION =	3.2.3
 
 PACKAGE_DESCRIPTION =	GNU Compiler Collection
-PACKAGE_CATEGORY =	utility
+PACKAGE_CATEGORY =	system
 
 DIST_FILES =		${PACKAGE_NAME}-${PACKAGE_VERSION}.tar.gz
 
-CONFIGURE_ARGS +=	--enable-shared --enable-static --enable-threads
+# Java support will conflict with Sun Java tools
+CONFIGURE_ARGS +=	--enable-languages=c,c++,f77,objc
 CONFIGURE_ENV =
+# Separate build is required, or the build will die
+CONFIGURE_TARGET =	do-configure-separate
 
 BUILD_MAKE_ARGS =	CFLAGS='-O' LIBCFLAGS='-g -O2' \
 			LIBCXXFLAGS='-g -O2 -fno-implicit-templates'
 BUILD_MAKE_ENV =
-BUILD_MAKE_TARGET =	bootstrap-lean
+BUILD_MAKE_TARGET =	bootstrap
+# gmake is required, or the build will die in the testsuite
+MAKE_PROGRAM =		gmake
+
+FAKE_DEST_VAR =
 
