@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.4 2002/08/12 17:43:54 zigg Exp $
+# $Id: Makefile,v 1.5 2002/11/30 19:16:45 zigg Exp $
 
 include ../GLOBAL/global.mk
 
@@ -13,6 +13,12 @@ PACKAGE_SOURCE_NAME =	x11-ssh-askpass-${PACKAGE_VERSION}
 BUILD_MAKE_ARGS +=	CCOPTIONS=""
 
 INSTALL_LIBEXECDIR =	${INSTALL_LIBDIR}/ssh
+
+pre-fake:
+	mkdir -p ${FAKE_DIRECTORY}/usr/openwin/lib/X11
+	cd ${FAKE_DIRECTORY}/usr/openwin/lib/X11 && \
+		mkdir ../app-defaults && \
+		ln -s ../app-defaults
 
 post-configure:
 	cd ${WORK_SOURCE} && xmkmf && make includes
