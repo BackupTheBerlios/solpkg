@@ -1,13 +1,13 @@
 #!/bin/sh
 #
-#  $Id: init_d_openssh,v 1.1 2001/11/09 18:24:33 zigg Exp $
+#  $Id: init_d_openssh,v 1.2 2003/09/18 15:06:40 zigg Exp $
 #
 #  Start/stop script for OpenSSH
 #
 
 case "$1" in
 'start')
-        ps -ef | awk '/usr.sbin.sshd/{print "kill",$2}' | sh
+	kill `cat /etc/ssh/sshd.pid`
         if [ -f /usr/sbin/sshd ] ; then
                 /usr/sbin/sshd
 	else
@@ -16,7 +16,7 @@ case "$1" in
         fi
         ;;
 'stop')
-        ps -ef | awk '/usr.sbin.sshd/{print "kill",$2}' | sh
+	kill `cat /etc/ssh/sshd.pid`
         ;;
 *)
         echo $0: usage: /etc/init.d/openssh { start | stop } >&2
