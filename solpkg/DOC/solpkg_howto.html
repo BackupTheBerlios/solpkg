@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 1st March 2002), see www.w3.org">
+<title>Solaris Package System How-To Guide</title>
+</head>
+<body>
+<h1>Solaris Package System How-To Guide</h1>
+
+<h2>Introduction</h2>
+
+<p>The Solaris Package System ("solpkg") is a framework and
+repository of Makefile "recipes" that can be used to build Solaris
+packages out of software source tarballs. It supplies the missing
+link between widely available source and Solaris binaries.</p>
+
+<p>solpkg is essentially a clone of <a href=
+"http://www.openbsd.org/">OpenBSD</a>'s ports system, which the
+author worked on writing ports for for awhile. It is not as
+complete but is more than adequate for building commonly used free
+software packages for Solaris.</p>
+
+<p>It was designed to have a minimal dependency on non-Solaris
+tools. It is developed using Solaris' <code>make</code> tool, and
+<a href="http://www.gnu.org/">GNU</a>'s <a href=
+"http://gcc.gnu.org/">GCC</a>.</p>
+
+<h2>Prerequisites</h2>
+
+<p>Before you can use solpkg, you'll need GCC. Precompiled packages
+(which you can <code>gunzip</code> then install with <code>pkgadd
+-d <var>name-of-package-file</var></code> are available from <a
+href="ftp://ftp.berlios.de/pub/solpkg/">the solpkg FTP site</a>,
+for several flavors of Solaris.</p>
+
+<p>If you want to stay up-to-date with solpkg, you should also grab
+a precompiled package of <a href="http://www.cvshome.org/">CVS</a>.
+With this, you can update your copy of solpkg from the CVS
+repository on <a href="http://developer.berlios.de/">BerliOS</a>.
+If you don't need this, or you can't get through to the CVS pserver
+(port 2401 on <code>cvs.solpkg.berlios.de</code>), you can get a
+tarball from <a href=
+"http://developer.berlios.de/projects/solpkg/">the solpkg project
+page</a> instead.</p>
+
+<p>(While you're at BerliOS, join the mailing list. You can keep
+up-to-date with the project there, and join in the development if
+you wish.)</p>
+
+<p>If you got a tarball, extract it into an area with enough space
+to hold the tarballs, extracts, and final packages for whatever
+packages you want to use. solpkg itself is very small, but the
+packages it builds can take several megabytes from start to finish.
+If you choose to use CVS, follow the same guidelines, except you
+want to follow <a href=
+"http://developer.berlios.de/cvs/?group_id=268">the checkout
+instructions on BerliOS</a> to get your solpkg work area ready to
+go.</p>
+
+<p>Finally, you'll need to make sure you have Solaris
+<code>make</code> and packaging tools available on your system.
+<code>make</code> is available in the <code>SUNWsprot</code>
+package. The rest come in <code>SUNWcsu</code>, so you should
+already have them. Add <code>/usr/ccs/bin</code> to your PATH, so
+that <code>make</code> can be used.</p>
+
+<h2>Building a package</h2>
+
+<p>Once you've satisfied the prerequisites, building the packages
+is very easy. First, you'll need to grab the source tarball, as
+solpkg doesn't currently do it for you. Look at the Makefile in the
+directory of the package you wish to install to figure out what
+version you need (in this example, we'll be using
+<code>gtar</code>, so type <code>cd solpkg/gtar</code>, then
+<code>more Makefile</code>). Put it in the <code>DIST</code>
+directory underneath your <code>solpkg</code> directory.</p>
+
+<p>Now, switch to your package directory (<code>cd ../gtar</code>)
+and type <code>make</code>. You don't have to be root for this
+step, because all you are doing is compiling the source itself.</p>
+
+<p>When the compilation is complete, <code>su</code> to root and
+type <code>make package</code>, and you will get a package file
+(extension <code>.pkg</code>) in the package directory.
+<code>pkgadd -d <var>name-of-package-file</var></code> this, and
+the package is installed! You can also reuse this package file on
+any other system.</p>
+
+<p>If compilation or packaging stops for any reason, you may need
+to clean out the build or fake install area. There are two special
+targets for this. <code>make clean-fake</code> cleans out the fake
+area. <code>make clean</code> cleans out all fake and build
+artifacts. Neither one deletes the package file, if one was
+created.</p>
+
+<h2>Building other packages</h2>
+
+<p>Most package-building logic is abstracted into the
+<code>GLOBAL/global.mk</code> file, which is included by the recipe
+<code>Makefile</code>s. This makes the recipe
+<code>Makefile</code>s able to stay simple, and override parts of
+the process they need to handle quirks in a particular package's
+build process.</p>
+
+<p>If you have an upgrade to a package, it is usually as simple as
+bumping the version number in the package's <code>Makefile</code>.
+Then download the new source tarball into <code>DIST</code>, and
+try to build a package.</p>
+
+<p>When testing new builds, it is a good idea to never
+<code>su</code> to root, and to use the <code>make prototype</code>
+target instead of <code>make package</code>. When you do this, the
+package-building stops when the <code>Prototype</code> file is
+created, and you can check it to make sure that all the files would
+be installed in the proper places, without risking a broken
+installer installing rogue files all over your system.</p>
+
+<p>If you want to bring new packages to solpkg, we welcome
+submissions! If you can't figure out exactly what you need to do
+from reading the source of other packages and
+<code>global.mk</code>, contact the <a href=
+"https://lists.berlios.de/mailman/listinfo/solpkg-devel">solpkg-devel</a>
+mailing list, and help can be provided.</p>
+
+<hr>
+<a href="mailto:matt.behrens@kohler.com">Matt Behrens</a>
+</body>
+</html>
+
