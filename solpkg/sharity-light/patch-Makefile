@@ -1,0 +1,31 @@
+--- Makefile.orig	Tue Oct 21 09:19:20 2003
++++ Makefile	Tue Oct 21 09:19:43 2003
+@@ -12,11 +12,11 @@
+ ##############################################################################
+ 
+ # For NEXTSTEP/OPENSTEP:
+-CFLAGS = -Wall -O2 -traditional-cpp -g
++#CFLAGS = -Wall -O2 -traditional-cpp -g
+ # put your architecture here:
+-ARCH = -arch i386
+-THE_CC = cc
+-RPC_WARNFLAGS = -Wno-unused -Wno-switch -Wno-uninitialized
++#ARCH = -arch i386
++#THE_CC = cc
++#RPC_WARNFLAGS = -Wno-unused -Wno-switch -Wno-uninitialized
+ 
+ # For Linux: (use static linking because of libc5/libc6 troubles)
+ #CFLAGS = -Wall -O2 -g
+@@ -46,9 +46,9 @@
+ #RPC_WARNFLAGS =
+ 
+ # For Solaris:
+-#CFLAGS = -O2 -DSOLARIS
+-#LIBS = -R/usr/ucblib -L/usr/ucblib -lrpcsoc -lsocket -lnsl
+-#RPC_WARNFLAGS = -Wno-unused -Wno-switch -Wno-uninitialized
++CFLAGS = -O2 -DSOLARIS
++LIBS = -R/usr/ucblib -L/usr/ucblib -lrpcsoc -lsocket -lnsl
++RPC_WARNFLAGS = -Wno-unused -Wno-switch -Wno-uninitialized
+ 
+ # For IRIX6 MIPS Pro 7.1 C
+ #CFLAGS = -O2 -DIRIX -Dinline=
