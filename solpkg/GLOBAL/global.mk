@@ -1,4 +1,4 @@
-# $Id: global.mk,v 1.7 2002/08/12 17:43:54 zigg Exp $
+# $Id: global.mk,v 1.8 2002/11/30 19:13:04 zigg Exp $
 
 # Build phase parameters
 
@@ -188,10 +188,18 @@ fake:	.faked
 pre-fake:
 
 do-fake:
-	mkdir -p ${FAKE_DIRECTORY}/usr
+	mkdir -p ${FAKE_DIRECTORY}${INSTALL_PREFIX}
 	cd ${WORK_SOURCE} && \
 		AM_MAKEFLAGS="${FAKE_MAKE_ENV}" ${FAKE_MAKE_ENV} \
 			${MAKE_PROGRAM} ${FAKE_MAKE_ARGS} ${FAKE_MAKE_TARGET}
+	-for d in `cat ${SOLPKG_HOME}/GLOBAL/group_bin.txt`; \
+	do \
+		chgrp bin ${FAKE_DIRECTORY}$$d ; \
+	done
+	-for d in `cat ${SOLPKG_HOME}/GLOBAL/group_sys.txt`; \
+	do \
+		chgrp sys ${FAKE_DIRECTORY}$$d ; \
+	done
 
 post-fake:
 
@@ -214,9 +222,10 @@ do-prototype:
 		fi; \
 	done
 	cd ${FAKE_DIRECTORY} && \
-		find . | pkgproto | grep -v Prototype | \
-		sed -e 's| etc| /etc|' | sed -e 's| usr| /usr|' | \
-		sed -e 's| var| /var|' > Prototype && \
+		find . | pkgproto | grep -v '^f none Prototype' | \
+		sed -e 's|^d none |d none /|' | \
+		sed -e 's|^f none |f none /|' | \
+		sed -e 's|^s none |s none /|' > Prototype && \
 		echo i pkginfo >> Prototype
 
 post-prototype:

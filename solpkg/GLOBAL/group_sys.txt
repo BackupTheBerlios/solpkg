@@ -1,0 +1,10 @@
+/etc
+/etc/init.d
+/etc/rc0.d
+/etc/rc1.d
+/etc/rc2.d
+/etc/rc3.d
+/etc/rcS.d
+/usr
+/usr/share
+/var
