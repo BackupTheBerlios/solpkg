@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.1 2003/09/17 14:37:19 zigg Exp $
+# $Id: Makefile,v 1.2 2004/08/13 17:53:59 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		qt
-PACKAGE_VERSION =	3.1.2
+PACKAGE_VERSION =	3.3.2
 
 PACKAGE_SOURCE_NAME =	qt-x11-free-${PACKAGE_VERSION}
 
