@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.10 2003/09/17 14:31:38 zigg Exp $
+# $Id: Makefile,v 1.11 2003/10/01 14:44:29 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		openssh
-PACKAGE_VERSION =	3.7.1p1
+PACKAGE_VERSION =	3.7.1p2
 
 PACKAGE_DESCRIPTION =	OpenSSH
 PACKAGE_CATEGORY =	utility
