@@ -1,13 +1,14 @@
-# $Id: Makefile,v 1.1 2002/11/30 19:57:10 zigg Exp $
+# $Id: Makefile,v 1.2 2003/09/17 14:32:35 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		fetchmail
-PACKAGE_VERSION =	6.1.2
+PACKAGE_VERSION =	6.2.4
 
 PACKAGE_DESCRIPTION =	fetchmail
 PACKAGE_CATEGORY =	utility
 
-CONFIGURE_ARGS +=	--disable-nls
+CONFIGURE_ENV +=	CPFLAGS="-I/usr/lib/openssl/include"
+CONFIGURE_ARGS +=	--disable-nls --enable-NTLM --with-ssl=/usr/lib
 FAKE_DEST_VAR =
 
