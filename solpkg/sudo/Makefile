@@ -1,9 +1,9 @@
-# $Id: Makefile,v 1.1 2002/10/31 18:38:44 zigg Exp $
+# $Id: Makefile,v 1.2 2003/09/17 14:26:51 zigg Exp $
 
 include ../GLOBAL/global.mk
 
 PACKAGE_NAME =		sudo
-PACKAGE_VERSION =	1.6.6
+PACKAGE_VERSION =	1.6.7p5
 
 PACKAGE_DESCRIPTION =	Sudo
 PACKAGE_CATEGORY =	utility
