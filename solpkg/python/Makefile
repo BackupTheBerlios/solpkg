@@ -1,0 +1,23 @@
+# $Id: Makefile,v 1.1 2002/01/17 21:06:41 zigg Exp $
+
+include ../GLOBAL/global.mk
+
+PACKAGE_NAME =		python
+PACKAGE_VERSION =	2.1.2
+
+PACKAGE_DESCRIPTION =	Python
+PACKAGE_VENDOR =	PythonLabs
+PACKAGE_CATEGORY =	utility
+
+DIST_FILES =		Python-${PACKAGE_VERSION}.tgz
+
+WORK_SOURCE =		${WORK_DIRECTORY}/Python-${PACKAGE_VERSION}
+
+CONFIGURE_ENV =		OPT="${CFLAGS}"
+MAKE_BUILD_ARGS =
+
+post-fake:
+	cd ${WORK_SOURCE} && \
+		install -c -m 755 Tools/scripts/pydoc \
+			${FAKE_DIRECTORY}${INSTALL_PREFIX}/bin
+
